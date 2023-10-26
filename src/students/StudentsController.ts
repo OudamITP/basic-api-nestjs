@@ -5,7 +5,7 @@ import { CreateStudentDto } from './studentsDto/create-student.dto';
 export class StudentsController {
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
-    return 'This action add a new student';
+    return 'This action add a new student'; 
   }
 
   @Get()
