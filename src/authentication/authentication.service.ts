@@ -5,7 +5,7 @@ import { LogInDto } from './authentication.dto/logIn.dto';
 export class AuthenticationService { 
 
     logIn(loginDto: LogInDto) {
-        return `hi`;
+        return `haha`;
     }
 
 }
