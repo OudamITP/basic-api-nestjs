@@ -1,11 +1,24 @@
-import { Module } from '@nestjs/common';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { StudentsModule } from './students/students.module';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { StudentsController } from './students/StudentsController';
+import { TeachersModule } from './teachers/teachers.module';
+import { WelcomeMiddleware } from './middle-wares/welcome.middleware';
 
 @Module({
-  imports: [],
-  controllers: [AppController, StudentsController],
+  imports: [
+    AuthenticationModule,
+    StudentsModule, 
+    TeachersModule
+  ],
+  controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { 
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(WelcomeMiddleware)
+      .forRoutes('authentication');
+  }
+}
