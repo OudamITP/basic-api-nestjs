@@ -1,24 +1,26 @@
+import { GeneralPurposesService } from './Utilities/general-purposes.service';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { StudentsModule } from './students/students.module';
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TeachersModule } from './teachers/teachers.module';
-import { WelcomeMiddleware } from './middle-wares/welcome.middleware';
+import { handleLogginMiddleware } from './middle-wares/handle-loggin.middleware';
 
 @Module({
   imports: [
     AuthenticationModule,
-    StudentsModule, 
+    StudentsModule,
     TeachersModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    GeneralPurposesService, AppService],
 })
-export class AppModule { 
+export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(WelcomeMiddleware)
-      .forRoutes('authentication');
+      .apply(handleLogginMiddleware)
+      .forRoutes('*');
   }
 }
