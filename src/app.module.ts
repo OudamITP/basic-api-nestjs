@@ -1,3 +1,5 @@
+import { APP_FILTER } from '@nestjs/core';
+import { GlobalHttpExceptionsFilter } from './custom-exceptions/global-http-exception.filter';
 import { GeneralPurposesService } from './Utilities/general-purposes.service';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { StudentsModule } from './students/students.module';
@@ -15,6 +17,10 @@ import { handleLogginMiddleware } from './middle-wares/handle-loggin.middleware'
   ],
   controllers: [AppController],
   providers: [
+    {
+      provide: APP_FILTER,
+      useClass: GlobalHttpExceptionsFilter,
+    },
     GeneralPurposesService, AppService],
 })
 export class AppModule {
