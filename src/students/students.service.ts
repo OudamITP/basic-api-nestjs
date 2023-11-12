@@ -1,6 +1,9 @@
 import { Body, Injectable } from '@nestjs/common';
 import { CreateStudentDto } from './studentsDto/create-student.dto';
 import { UpdateStudentDto } from './studentsDto/update-student.dto';
+import e from 'express';
+import { error } from 'console';
+import { CustomBadRequestException } from 'src/custom-exceptions/custom-bad-request.exception';
 
 @Injectable()
 export class StudentsService {
@@ -10,7 +13,8 @@ export class StudentsService {
     }
 
     findAll(){
-        return `return all students!`;
+        throw new CustomBadRequestException();
+        return 'return all students!';
     }
 
     findOne(id: number){

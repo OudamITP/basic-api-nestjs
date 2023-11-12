@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { GeneralPurposesService } from 'src/Utilities/general-purposes.service';
+import { CustomBadRequestException } from 'src/custom-exceptions/custom-bad-request.exception';
 
 @Injectable()
 export class handleLogginMiddleware implements NestMiddleware {
