@@ -1,13 +1,13 @@
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { GlobalHttpExceptionsFilter } from './custom-exceptions/global-http-exception.filter';
 import { GeneralPurposesService } from './Utilities/general-purposes.service';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { StudentsModule } from './students/students.module';
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TeachersModule } from './teachers/teachers.module';
-import { handleLogginMiddleware } from './middle-wares/handle-loggin.middleware';
+import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
@@ -21,12 +21,19 @@ import { handleLogginMiddleware } from './middle-wares/handle-loggin.middleware'
       provide: APP_FILTER,
       useClass: GlobalHttpExceptionsFilter,
     },
-    GeneralPurposesService, AppService],
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard
+    },
+    GeneralPurposesService, 
+    AppService,
+    AuthGuard
+  ],
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(handleLogginMiddleware)
-      .forRoutes('*');
-  }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(handleLogginMiddleware)
+  //     .forRoutes('*');
+  // }
 }

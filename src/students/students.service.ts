@@ -13,7 +13,6 @@ export class StudentsService {
     }
 
     findAll(){
-        throw new CustomBadRequestException();
         return 'return all students!';
     }
 
