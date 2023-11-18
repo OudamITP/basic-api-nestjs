@@ -9,7 +9,6 @@ export class handleLogginMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: Function) {
     req['roles'] = req.body['role'];
-    console.log(req['user'])
     next();
   }
 }
