@@ -3,7 +3,7 @@ import { CreateStudentDto } from './studentsDto/create-student.dto';
 import { UpdateStudentDto } from './studentsDto/update-student.dto';
 import e from 'express';
 import { error } from 'console';
-import { CustomBadRequestException } from 'src/custom-exceptions/custom-bad-request.exception';
+import { CustomBadRequestException } from 'src/General-purposes/custom-exceptions/custom-bad-request.exception';
 
 @Injectable()
 export class StudentsService {
@@ -13,7 +13,6 @@ export class StudentsService {
     }
 
     findAll(){
-        throw new CustomBadRequestException();
         return 'return all students!';
     }
 
