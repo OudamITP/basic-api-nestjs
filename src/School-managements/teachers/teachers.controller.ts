@@ -2,10 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, HttpSt
 import { TeachersService } from './teachers.service';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
-import { LoggingInterceptor } from 'src/General-purposes/interceptors/logging.interceptor';
+import { ApiSecurity } from '@nestjs/swagger';
+import { ApiSecurityEnum } from 'src/General-purposes/Utilities/Enums/api-security.enum';
+import { Auth } from 'src/General-purposes/custom-decorator/auth.decorator';
+import { UserRoles } from 'src/General-purposes/Utilities/Enums/roles.enum';
 
+@ApiSecurity(ApiSecurityEnum.BASIC)
 @Controller('teachers')
-// @UseInterceptors(LoggingInterceptor)
 export class TeachersController {
   constructor(private readonly teachersService: TeachersService) {}
 
@@ -15,6 +18,7 @@ export class TeachersController {
   }
 
   @Get()
+  @Auth(UserRoles.ADMIN)
   findAll() {
     return this.teachersService.findAll();
   }
