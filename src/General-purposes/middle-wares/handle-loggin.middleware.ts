@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 export class handleLogginMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: Function) {
-    req['roles'] = req.body['role'];
+    req['user'] = req.body['user'];
     next();
   }
 }

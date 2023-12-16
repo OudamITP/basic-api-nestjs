@@ -13,7 +13,7 @@ export class GeneralPurposesService {
         return decryptedAuthInfo;
     }
 
-    async validatvalidateRequestion(req: Request) {
+    async validateRequestion(req: Request) {
         const authInfo: string = req.headers['authorization'];
 
         if(!authInfo) {

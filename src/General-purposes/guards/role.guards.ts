@@ -13,14 +13,13 @@ export class RolesGuard implements CanActivate {
       return true;
     }
     const request = context.switchToHttp().getRequest();
-    const user = request.roles;
-    return matchRoles(roles, user.roles);
+    const user = request.user.roles;
+    return matchRoles(roles, user);
   }
 }
 
-
-function matchRoles(definedRoles: string[], userRoles: any): boolean {
-  if(definedRoles !== userRoles) {
+function matchRoles(requiredRoles: string[], userRoles: any): boolean {
+  if(requiredRoles[0] !== userRoles) {
     throw new CustomUnauthorizedException('No permission');
   }
   return true;
